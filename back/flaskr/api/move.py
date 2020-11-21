@@ -1,4 +1,5 @@
 import os
+import random
 from datetime import datetime
 from flaskr import app, get_session, set_session
 from flaskr.sea_battle.board import Board
@@ -75,10 +76,9 @@ def make_move(player, x, y, the_game):
     else:
         board = Board.load(the_game.board1)
         random.seed(os.urandom(128))
-        is_hit = board.shot(
-            random.randint(0, board.board_size), 
-            random.randint(0, board.board_size)
-        )
+        x = random.randint(0, board.board_size)
+        y = random.randint(0, board.board_size)
+        is_hit = board.shot(x, y)
         if not is_hit:
             the_game.move = Player.First
         
