@@ -124,3 +124,14 @@ class Board:
         if self._board[x][y] == 1:            
             return True
         return False
+
+    def is_win(self, coords):
+        found = 0
+        for x, y in coords:
+            if self._board[x][y] == 1:
+                found += 1
+        
+        if self._board_size == 10:
+            return found == 20
+        elif self._board_size == 15:
+            return found == 45

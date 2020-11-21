@@ -76,8 +76,8 @@ def make_move(player, x, y, the_game):
     else:
         board = Board.load(the_game.board1)
         random.seed(os.urandom(128))
-        x = random.randint(0, board.board_size)
-        y = random.randint(0, board.board_size)
+        x = random.randint(0, board.board_size - 1)
+        y = random.randint(0, board.board_size - 1)
         is_hit = board.shot(x, y)
         if not is_hit:
             the_game.move = Player.First
@@ -89,8 +89,12 @@ def make_move(player, x, y, the_game):
 
 
 def find_victory(player, the_game):
-    # TODO: implement
-    return False
+    coords = [(m.move_x, m.move_y) for m in the_game.moves if m.player == player]
+    if player == Player.First:
+        board = Board.load(the_game.board2)
+    else:
+        board = Board.load(the_game.board1)
+    return board.is_win(coords)
 
 
 def save_winner(player, the_game):
